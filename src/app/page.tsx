@@ -22,10 +22,6 @@ import { Breadcrumb, Layout, Menu, theme, Steps, DatePicker } from 'antd';
 import type { DatePickerProps } from 'antd';
 import type { Dayjs } from 'dayjs';
 
-
-const onChange: DatePickerProps<Dayjs[]>['onChange'] = (date, dateString) => {
-  console.log(date, dateString);
-};
 const { Content, Sider } = Layout;
 
 const DashboardLayout = () => {
@@ -33,6 +29,10 @@ const DashboardLayout = () => {
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
+
+  const onChange: DatePickerProps<Dayjs[]>['onChange'] = (date, dateString) => {
+    console.log(date, dateString);
+  };
 
   // Define items for Steps component
   const items = [
@@ -222,9 +222,9 @@ const DashboardLayout = () => {
             <h1 style={{
               fontSize: '24px',
               fontWeight: '500',
-              marginBottom: '16px',  // ลดระยะห่างลงเล็กน้อย
+              marginBottom: '16px',
               color: '#000000',
-              paddingLeft: '20px'    // เพิ่ม padding ซ้ายให้ตรงกับ layout เดิม
+              paddingLeft: '20px'
             }}>
               เพิ่มประเด็นความเสี่ยง
             </h1>
@@ -256,11 +256,10 @@ const DashboardLayout = () => {
             }}
           >
             ข้อมูลความเสี่ยง
+            <div>
+              <DatePicker onChange={onChange} needConfirm />
+            </div>
           </Content>
-          <div>
-          const App: React.FC = () => <DatePicker onChange={onChange} needConfirm />;
-
-          </div>
         </Layout>
       </Layout>
     </Layout>
