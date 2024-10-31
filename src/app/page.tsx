@@ -17,9 +17,11 @@ import {
   LogoutOutlined,
   FileMarkdownOutlined,
   ContainerOutlined,
+  DownOutlined,
+  CalendarOutlined
 } from '@ant-design/icons';
-import { Breadcrumb, Layout, Menu, theme, Steps, DatePicker } from 'antd';
-import type { DatePickerProps } from 'antd';
+import { Breadcrumb, Layout, Menu, theme, Steps, DatePicker, Button, Dropdown, Form, message, } from 'antd';
+import type { DatePickerProps, MenuProps } from 'antd';
 import type { Dayjs } from 'dayjs';
 
 const { Content, Sider } = Layout;
@@ -30,7 +32,7 @@ const DashboardLayout = () => {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
 
-  const onChange: DatePickerProps<Dayjs[]>['onChange'] = (date, dateString) => {
+  const onChange: DatePickerProps<Dayjs>['onChange'] = (date, dateString) => {
     console.log(date, dateString);
   };
 
@@ -49,6 +51,44 @@ const DashboardLayout = () => {
       title: <div style={{ fontSize: '14px' }}>สรุปรายละเอียด</div>,
     },
   ];
+
+  const dropdownItems: MenuProps['items'] = [
+    {
+      label: "1st menu item",
+      key: "1",
+      icon: <UserOutlined />,
+    },
+    {
+      label: "2nd menu item",
+      key: "2",
+      icon: <UserOutlined />,
+    },
+    {
+      label: "3rd menu item",
+      key: "3",
+      icon: <UserOutlined />,
+      danger: true,
+    },
+    {
+      label: "4rd menu item",
+      key: "4",
+      icon: <UserOutlined />,
+      danger: true,
+      disabled: true,
+    },
+  ];
+
+  // Event Handlers
+  const handleMenuClick: MenuProps["onClick"] = (e) => {
+    message.info("Click on menu item.");
+    console.log("click", e);
+  };
+
+  // Dropdown Menu Props Configuration
+  const menuProps = {
+    items: dropdownItems,
+    onClick: handleMenuClick,
+  };
 
   // Define menu items
   const menuItems = [
@@ -253,17 +293,100 @@ const DashboardLayout = () => {
               minHeight: 280,
               background: colorBgContainer,
               borderRadius: borderRadiusLG,
+              fontSize: '14px',
             }}
           >
-            ข้อมูลความเสี่ยง
-            <div>
-              <DatePicker onChange={onChange} needConfirm />
+            <div className="max-w-6xl mx-auto p-8">
+              <Form layout="vertical" className="space-y-6">
+                {/* First Row - 4 columns */}
+                <div className="grid grid-cols-4 gap-4">
+                  {/* Fiscal Year */}
+                  <div>
+                    <div className="mb-2">
+                      <span className="text-sm">ปีงบประมาณ<span className="text-red-500">*</span></span>
+                    </div>
+                    <DatePicker
+                      className="w-full"
+                      needConfirm
+                      suffixIcon={<CalendarOutlined className="text-gray-400" />}
+                    />
+                  </div>
+
+                  {/* Department */}
+                  <div>
+                    <div className="mb-2">
+                      <span className="text-sm">หน่วยงาน/ส่วนงาน ที่รับผิดชอบ<span className="text-red-500">*</span></span>
+                    </div>
+                    <Dropdown menu={menuProps}>
+                      <Button className="w-full text-left flex justify-between items-center">
+                        <span className="text-gray-400">กรุณาเลือก</span>
+                        <DownOutlined className="text-gray-400" />
+                      </Button>
+                    </Dropdown>
+                  </div>
+
+                  {/* Executive */}
+                  <div>
+                    <div className="mb-2">
+                      <span className="text-sm">ผู้รับผิดชอบระดับผู้บริหาร<span className="text-red-500">*</span></span>
+                    </div>
+                    <Dropdown menu={menuProps}>
+                      <Button className="w-full text-left flex justify-between items-center">
+                        <span className="text-gray-400">กรุณาเลือก</span>
+                        <DownOutlined className="text-gray-400" />
+                      </Button>
+                    </Dropdown>
+                  </div>
+
+                  {/* Staff */}
+                  <div>
+                    <div className="mb-2">
+                      <span className="text-sm">ผู้รับผิดชอบระดับเจ้าหน้าที่<span className="text-red-500">*</span></span>
+                    </div>
+                    <Dropdown menu={menuProps}>
+                      <Button className="w-full text-left flex justify-between items-center">
+                        <span className="text-gray-400">กรุณาเลือก</span>
+                        <DownOutlined className="text-gray-400" />
+                      </Button>
+                    </Dropdown>
+                  </div>
+                </div>
+
+                {/* Second Row - 2 columns */}
+                <div className="grid grid-cols-2 gap-4">
+                  {/* Risk Category */}
+                  <div>
+                    <div className="mb-2">
+                      <span className="text-sm">ด้านความเสี่ยง<span className="text-red-500">*</span></span>
+                    </div>
+                    <Dropdown menu={menuProps}>
+                      <Button className="w-full text-left flex justify-between items-center">
+                        <span className="text-gray-400">กรุณาเลือก</span>
+                        <DownOutlined className="text-gray-400" />
+                      </Button>
+                    </Dropdown>
+                  </div>
+
+                  {/* Risk Topic */}
+                  <div>
+                    <div className="mb-2">
+                      <span className="text-sm">ประเด็นความเสี่ยง<span className="text-red-500">*</span></span>
+                    </div>
+                    <Dropdown menu={menuProps}>
+                      <Button className="w-full text-left flex justify-between items-center">
+                        <span className="text-gray-400">กรุณาเลือก</span>
+                        <DownOutlined className="text-gray-400" />
+                      </Button>
+                    </Dropdown>
+                  </div>
+                </div>
+              </Form>
             </div>
           </Content>
         </Layout>
       </Layout>
     </Layout>
   );
-}
+};
 
 export default DashboardLayout;
