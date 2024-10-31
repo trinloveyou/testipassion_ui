@@ -18,15 +18,36 @@ import {
   FileMarkdownOutlined,
   ContainerOutlined,
   DownOutlined,
-  CalendarOutlined
+  CalendarOutlined,
+  DeleteOutlined,
+  UploadOutlined
 } from '@ant-design/icons';
-import { Breadcrumb, Layout, Menu, theme, Steps, DatePicker, Button, Dropdown, Form, message, Divider } from 'antd';
-import type { DatePickerProps, MenuProps } from 'antd';
+import { Breadcrumb, Layout, Menu, theme, Steps, DatePicker, Button, Dropdown, Form, message, Divider, Upload } from 'antd';
+import type { DatePickerProps, MenuProps, UploadProps } from 'antd';
 import type { Dayjs } from 'dayjs';
 import { Row, Col, Input } from 'antd';
 
 
 const { Content, Sider } = Layout;
+
+const props: UploadProps = {
+  name: 'file',
+  action: 'https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload',
+  headers: {
+    authorization: 'authorization-text',
+  },
+  onChange(info) {
+    if (info.file.status !== 'uploading') {
+      console.log(info.file, info.fileList);
+    }
+    if (info.file.status === 'done') {
+      message.success(`${info.file.name} file uploaded successfully`);
+    } else if (info.file.status === 'error') {
+      message.error(`${info.file.name} file upload failed.`);
+    }
+  },
+};
+
 
 const DashboardLayout = () => {
   const [collapsed, setCollapsed] = useState(false);
@@ -34,9 +55,7 @@ const DashboardLayout = () => {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
 
-  const onChange: DatePickerProps<Dayjs>['onChange'] = (date, dateString) => {
-    console.log(date, dateString);
-  };
+  // Remove the onChange declaration
 
   // Define items for Steps component
   const items = [
@@ -298,195 +317,211 @@ const DashboardLayout = () => {
               fontSize: '14px',
             }}
           >
-            <div className="max-w-6xl mx-auto p-8">
-              <h1 className="text-2xl font-semibold text-gray-800">ข้อมูลความเสี่ยง</h1>
-              <br />
-              <Form layout="vertical" className="space-y-6">
-                {/* First Row - 4 columns */}
-                <Row gutter={16}>
-                  {/* Fiscal Year */}
-                  <Col span={6}>
-                    <Form.Item label={<>ปีงบประมาณ<span className="text-red-500">*</span></>}>
-                      <DatePicker
-                        className="w-full"
-                        needConfirm
-                        suffixIcon={<CalendarOutlined className="text-gray-400" />}
-                      />
-                    </Form.Item>
-                  </Col>
-
-                  {/* Department */}
-                  <Col span={6}>
-                    <Form.Item label={<>หน่วยงาน/ส่วนงาน ที่รับผิดชอบ<span className="text-red-500">*</span></>}>
-                      <Dropdown menu={menuProps}>
-                        <Button className="w-full text-left flex justify-between items-center">
-                          <span className="text-gray-400">⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀</span>
-                          <DownOutlined className="text-gray-400" />
-                        </Button>
-                      </Dropdown>
-                    </Form.Item>
-                  </Col>
-
-                  {/* Executive */}
-                  <Col span={6}>
-                    <Form.Item label={<>ผู้รับผิดชอบระดับผู้บริหาร<span className="text-red-500">*</span></>}>
-                      <Dropdown menu={menuProps}>
-                        <Button className="w-full text-left flex justify-between items-center">
-                          <span className="text-gray-400">⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀</span>
-                          <DownOutlined className="text-gray-400" />
-                        </Button>
-                      </Dropdown>
-                    </Form.Item>
-                  </Col>
-
-                  {/* Staff */}
-                  <Col span={6}>
-                    <Form.Item label={<>ผู้รับผิดชอบระดับเจ้าหน้าที่<span className="text-red-500">*</span></>}>
-                      <Dropdown menu={menuProps}>
-                        <Button className="w-full text-left flex justify-between items-center">
-                          <span className="text-gray-400">⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀</span>
-                          <DownOutlined className="text-gray-400" />
-                        </Button>
-                      </Dropdown>
-                    </Form.Item>
-                  </Col>
-                </Row>
-
-                {/* Second Row - 2 columns */}
-                <Row gutter={16}>
-                  {/* Risk Category */}
-                  <Col span={6}>
-                    <Form.Item label={<>ด้านความเสี่ยง<span className="text-red-500">*</span></>}>
-                      <Dropdown menu={menuProps}>
-                        <Button className="w-full text-left flex justify-between items-center">
-                          <span className="text-gray-400">⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀</span>
-                          <DownOutlined className="text-gray-400" />
-                        </Button>
-                      </Dropdown>
-                    </Form.Item>
-                  </Col>
-
-                  {/* Risk Topic */}
-                  <Col span={12}>
-                    <Form.Item label={<>ประเด็นความเสี่ยง<span className="text-red-500">*</span></>}>
-                      <Input placeholder="⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀" className="text-gray-400" />
-                    </Form.Item>
-                  </Col>
-                </Row>
-              </Form>
-              <Divider />
-              <p>เชื่อมโยงแผนกลยุทธ์ของมหาวิทยาลัย</p>
-              <br />
-              <Col span={20}>
-                <Form.Item label={<>ยุทธศาสตร์ / กลยุทธ <span className="text-red-500">*</span></>}>
-                  <Dropdown menu={menuProps}>
-                    <Button
-                      style={{
-                        height: '250px', // ปรับความสูงที่ต้องการ
-                        fontSize: '18px', // ปรับขนาดฟอนต์ตามต้องการ
-                        padding: '0 16px' // เพิ่ม Padding เพื่อให้ปุ่มดูใหญ่ขึ้น
-                      }}
-                      className="custom-button-class flex justify-between items-center"
-                    >
-                      <span className="placeholder-text">⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀</span>
-                      <DownOutlined className="icon-class" />
-                    </Button>
-                  </Dropdown>
-                </Form.Item>
-              </Col>
-              <Divider />
-              <p>เชื่อมโยงแผนกลยุทธ์ของคณะ / หน่วยงาน</p>
-              <br />
-              <div className="bg-gray-50 p-6 rounded-lg shadow-sm">
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between">
-                    <h3 className="text-lg">1. เป้าหมาย</h3>
-                    <div className="flex space-x-2">
-                      <Button
-                        type="text"
-                        className="text-red-500 hover:text-red-700"
-                        icon={<span className="text-xl">🗑</span>}
-                      />
-                      <Button
-                        type="text"
-                        className="text-gray-500 hover:text-gray-700"
-                        icon={<span className="text-xl">⌃</span>}
-                      />
-                    </div>
-                  </div>
-
-                  <Form.Item>
-                    <Input
-                      placeholder="เป้าหมาย"
-                      className="w-full border rounded-md"
+            <div className="max-w-6xl mx-auto p-8"></div>
+            <h1 className="text-2xl font-semibold text-gray-800">ข้อมูลความเสี่ยง</h1>
+            <div className="max-w-6xl mx-auto p-8"></div>
+            <Form layout="vertical" className="space-y-6">
+              {/* First Row - 4 columns */}
+              <Row gutter={16}>
+                {/* Fiscal Year */}
+                <Col span={6}>
+                  <Form.Item label={<>ปีงบประมาณ<span className="text-red-500">*</span></>}>
+                    <DatePicker
+                      className="w-full"
+                      needConfirm
+                      suffixIcon={<CalendarOutlined className="text-gray-400" />}
                     />
                   </Form.Item>
+                </Col>
 
-                  <div className="pl-8 space-y-4">
-                    <div className="flex items-center justify-between">
-                      <h4 className="text-md">1.1 ยุทธศาสตร์</h4>
-                      <Button
-                        type="text"
-                        className="text-red-500 hover:text-red-700"
-                        icon={<span className="text-xl">🗑</span>}
-                      />
-                    </div>
-
-                    <Form.Item>
-                      <Input
-                        placeholder="ยุทธศาสตร์"
-                        className="w-full border rounded-md"
-                      />
-                    </Form.Item>
-
-                    <div className="pl-8 space-y-4">
-                      <div className="flex items-center justify-between">
-                        <h5 className="text-md">1.1.1 กลยุทธ์</h5>
-                        <Button
-                          type="text"
-                          className="text-red-500 hover:text-red-700"
-                          icon={<span className="text-xl">🗑</span>}
-                        />
-                      </div>
-
-                      <Form.Item>
-                        <Input
-                          placeholder="กลยุทธ์"
-                          className="w-full border rounded-md"
-                        />
-                      </Form.Item>
-
-                      <Button
-                        type="link"
-                        className="text-blue-500 hover:text-blue-700"
-                      >
-                        + เพิ่มกลยุทธ์
+                {/* Department */}
+                <Col span={6}>
+                  <Form.Item label={<>หน่วยงาน/ส่วนงาน ที่รับผิดชอบ<span className="text-red-500">*</span></>}>
+                    <Dropdown menu={menuProps}>
+                      <Button className="w-full text-left flex justify-between items-center">
+                        <span className="text-gray-400">⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀</span>
+                        <DownOutlined className="text-gray-400" />
                       </Button>
-                    </div>
+                    </Dropdown>
+                  </Form.Item>
+                </Col>
 
-                    <Button
-                      type="link"
-                      className="text-blue-500 hover:text-blue-700"
-                    >
-                      + เพิ่มยุทธศาสตร์
-                    </Button>
-                  </div>
+                {/* Executive */}
+                <Col span={6}>
+                  <Form.Item label={<>ผู้รับผิดชอบระดับผู้บริหาร<span className="text-red-500">*</span></>}>
+                    <Dropdown menu={menuProps}>
+                      <Button className="w-full text-left flex justify-between items-center">
+                        <span className="text-gray-400">⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀</span>
+                        <DownOutlined className="text-gray-400" />
+                      </Button>
+                    </Dropdown>
+                  </Form.Item>
+                </Col>
 
+                {/* Staff */}
+                <Col span={6}>
+                  <Form.Item label={<>ผู้รับผิดชอบระดับเจ้าหน้าที่<span className="text-red-500">*</span></>}>
+                    <Dropdown menu={menuProps}>
+                      <Button className="w-full text-left flex justify-between items-center">
+                        <span className="text-gray-400">⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀</span>
+                        <DownOutlined className="text-gray-400" />
+                      </Button>
+                    </Dropdown>
+                  </Form.Item>
+                </Col>
+              </Row>
+
+              {/* Second Row - 2 columns */}
+              <Row gutter={16}>
+                {/* Risk Category */}
+                <Col span={6}>
+                  <Form.Item label={<>ด้านความเสี่ยง<span className="text-red-500">*</span></>}>
+                    <Dropdown menu={menuProps}>
+                      <Button className="w-full text-left flex justify-between items-center">
+                        <span className="text-gray-400">⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀</span>
+                        <DownOutlined className="text-gray-400" />
+                      </Button>
+                    </Dropdown>
+                  </Form.Item>
+                </Col>
+
+                {/* Risk Topic */}
+                <Col span={12}>
+                  <Form.Item label={<>ประเด็นความเสี่ยง<span className="text-red-500">*</span></>}>
+                    <Input placeholder="⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀" className="text-gray-400" />
+                  </Form.Item>
+                </Col>
+              </Row>
+            </Form>
+            <Divider />
+            <p>เชื่อมโยงแผนกลยุทธ์ของมหาวิทยาลัย</p>
+            <br />
+            <Col span={20}>
+              <Form.Item label={<>ยุทธศาสตร์ / กลยุทธ <span className="text-red-500">*</span></>}>
+                <Dropdown menu={menuProps}>
                   <Button
-                    type="link"
-                    className="text-blue-500 hover:text-blue-700"
+                    style={{
+                      height: '250px', // ปรับความสูงที่ต้องการ
+                      fontSize: '18px', // ปรับขนาดฟอนต์ตามต้องการ
+                      padding: '0 16px' // เพิ่ม Padding เพื่อให้ปุ่มดูใหญ่ขึ้น
+                    }}
+                    className="custom-button-class flex justify-between items-center"
                   >
+                    <span className="placeholder-text">⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀</span>
+                    <DownOutlined className="icon-class" />
+                  </Button>
+                </Dropdown>
+              </Form.Item>
+            </Col>
+            <Divider />
+
+            <div className="max-w-6xl mx-auto">
+
+              <p>เชื่อมโยงแผนกลยุทธ์ของคณะ / หน่วยงาน</p>
+              <br />
+
+              <div className="bg-gray-200 min-h-screen flex items-center justify-center p-4">
+                <div className="bg-[#F7F7F9] rounded-lg p-6 max-w-xl w-full">
+
+                  <div style={{ background: "#bbb6b6", padding: "12px", }} className="mb-6">
+                    <div className="flex justify-between items-center mb-2">
+                      <h3 className="text-base font-normal">1. เป้าหมาย</h3>
+                      <div className="flex gap-1">
+                        <button className="text-red-500">
+                          <DeleteOutlined />
+                        </button>
+                      </div>
+                      <Form.Item className="mb-6">
+                        <Input placeholder="" className="w-full bg-white" />
+                      </Form.Item>
+                      <div>
+                        <div style={{ background: "#e3e0e0" }} className="ml-2 mb-1 p-2">
+                          <div className="flex justify-between items-center px-1 py-0.5">
+                            <h4 className="text-xs font-normal">1.1 ยุทธศาสตร์</h4>
+                            <button className="text-red-500 hover:text-red-700">
+                              <DeleteOutlined className="text-xs" />
+                            </button>
+                          </div>
+
+                          <Form.Item className="mb-0.5 px-1">
+                            <Input placeholder="" className="w-1/2 bg-white px-1 py-0.5 text-xs" />
+                          </Form.Item>
+
+                          <hr className="my-1" />
+
+                          <div className="ml-2">
+                            <div className="flex justify-between items-center px-1 py-0.5">
+                              <h5 className="text-xs font-normal">1.1.1 กลยุทธ์</h5>
+                              <button className="text-red-500 hover:text-red-700">
+                                <DeleteOutlined className="text-xs" />
+                              </button>
+                            </div>
+
+                            <Form.Item className="mb-2">
+                              <Input placeholder="" className="w-full bg-white" />
+                            </Form.Item>
+                          </div>
+
+                          <Button type="link" className="text-blue-500 hover:text-blue-600 p-0 h-auto">
+                            + เพิ่มกลยุทธ์
+                          </Button>
+                        </div>
+
+                        <Button type="link" className="text-blue-500 hover:text-blue-600 p-0 h-auto">
+                          + เพิ่มยุทธศาสตร์
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+                  <Button type="link" className="text-blue-500 hover:text-blue-600 p-0 h-auto">
                     + เพิ่มเป้าหมาย
                   </Button>
                 </div>
               </div>
-            </div>
+              <br />
+              <p>Upload file </p>
+              <br />
+              <p>เอกสารประกอบ</p>
 
+              <Upload {...props}>
+                <Button
+                  icon={<UploadOutlined />}
+                  style={{ fontSize: '18px', padding: '10px 20px' }} // ปรับขนาดที่นี่
+                >
+                  Click to Upload
+                </Button>
+              </Upload>
+              <Divider />
+            </div>
+            <p>สาเหตุความเสี่ยง</p>
+            <br />
+            <div>
+              <div className="ml-22">
+                <div className="flex justify-between items-center px-1 py-0.5">
+                  <h5 className="text-xs font-normal font-size=15px">สาเหตุความเสี่ยง</h5>
+                  <button className="text-red-500 hover:text-red-700">
+                    <DeleteOutlined className="text-xs" />
+                  </button>
+                </div>
+
+                <Form.Item className="mb-2">
+                  <Input placeholder="" className="w-full bg-white" />
+                </Form.Item>
+                <Button type="link" className="text-blue-500 hover:text-blue-600 p-0 h-auto">
+                  + เพิ่มสาเหตุความเสี่ยง
+                </Button>
+
+
+
+              </div>
+
+            </div>
           </Content>
         </Layout>
       </Layout>
     </Layout>
   );
 };
+
 
 export default DashboardLayout;
