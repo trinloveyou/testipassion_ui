@@ -24,7 +24,6 @@ import {
 } from '@ant-design/icons';
 import { Breadcrumb, Layout, Menu, theme, Steps, DatePicker, Button, Dropdown, Form, message, Divider, Upload } from 'antd';
 import type { DatePickerProps, MenuProps, UploadProps } from 'antd';
-import type { Dayjs } from 'dayjs';
 import { Row, Col, Input } from 'antd';
 
 
@@ -211,7 +210,7 @@ const DashboardLayout = () => {
   ];
 
   return (
-    <Layout style={{ minHeight: '100vh' }}>
+    <Layout style={{ minHeight: '150vh' }}>
       <Sider
         collapsible
         collapsed={collapsed}
@@ -236,7 +235,6 @@ const DashboardLayout = () => {
             />
           )}
         </div>
-
         {!collapsed && (
           <div style={{ textAlign: 'center', padding: '10px', marginTop: '-50px' }}>
             <img
@@ -262,7 +260,7 @@ const DashboardLayout = () => {
             borderRight: 0,
             backgroundColor: colorBgContainer
           }}
-          items={menuItems}
+          items={menuItems as ItemType<MenuItemType>[]}
         />
       </Sider>
 
@@ -329,7 +327,8 @@ const DashboardLayout = () => {
                     <DatePicker
                       className="w-full"
                       needConfirm
-                      suffixIcon={<CalendarOutlined className="text-gray-400" />}
+                      suffixIcon={<CalendarOutlined className="text-text" />}
+                      style={{ width: '245px' }}
                     />
                   </Form.Item>
                 </Col>
