@@ -493,7 +493,7 @@ const DashboardLayout = () => {
               </Upload>
               <Divider />
             </div>
-            <p>สาเหตุความเสี่ยง</p>
+            <p>1.สาเหตุความเสี่ยง</p>
             <br />
             <div>
               <div className="ml-22">
@@ -510,8 +510,19 @@ const DashboardLayout = () => {
                 <Button type="link" className="text-blue-500 hover:text-blue-600 p-0 h-auto">
                   + เพิ่มสาเหตุความเสี่ยง
                 </Button>
+                <br />
+                <br />
+                <p>Key word ความเสี่ยง</p>
+                <br />
 
-
+                <Form.Item>
+                  <Dropdown menu={menuProps}>
+                    <Button className="w-full text-left flex justify-between items-center">
+                      <span className="text-gray-400">⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀</span>
+                      <DownOutlined className="text-gray-400" />
+                    </Button>
+                  </Dropdown>
+                </Form.Item>
 
               </div>
 
