@@ -72,7 +72,7 @@ body {
 }
 
 p {
-  padding-left: 20px;
+
   font-size: 17px;
 }
 
@@ -99,4 +99,9 @@ p {
   margin-top: 16px;
   margin-right: 20px;
   /* Adjust this value to move further to the right */
+}
+
+.text-red-500 {
+  color: #f00;
+  /* Change to your desired red color */
 }

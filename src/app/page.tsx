@@ -20,7 +20,7 @@ import {
   DownOutlined,
   CalendarOutlined
 } from '@ant-design/icons';
-import { Breadcrumb, Layout, Menu, theme, Steps, DatePicker, Button, Dropdown, Form, message, } from 'antd';
+import { Breadcrumb, Layout, Menu, theme, Steps, DatePicker, Button, Dropdown, Form, message, Divider } from 'antd';
 import type { DatePickerProps, MenuProps } from 'antd';
 import type { Dayjs } from 'dayjs';
 import { Row, Col, Input } from 'antd';
@@ -299,6 +299,8 @@ const DashboardLayout = () => {
             }}
           >
             <div className="max-w-6xl mx-auto p-8">
+              <h1 className="text-2xl font-semibold text-gray-800">ข้อมูลความเสี่ยง</h1>
+              <br />
               <Form layout="vertical" className="space-y-6">
                 {/* First Row - 4 columns */}
                 <Row gutter={16}>
@@ -318,7 +320,7 @@ const DashboardLayout = () => {
                     <Form.Item label={<>หน่วยงาน/ส่วนงาน ที่รับผิดชอบ<span className="text-red-500">*</span></>}>
                       <Dropdown menu={menuProps}>
                         <Button className="w-full text-left flex justify-between items-center">
-                          <span className="text-gray-400">กรุณาเลือก</span>
+                          <span className="text-gray-400">⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀</span>
                           <DownOutlined className="text-gray-400" />
                         </Button>
                       </Dropdown>
@@ -330,7 +332,7 @@ const DashboardLayout = () => {
                     <Form.Item label={<>ผู้รับผิดชอบระดับผู้บริหาร<span className="text-red-500">*</span></>}>
                       <Dropdown menu={menuProps}>
                         <Button className="w-full text-left flex justify-between items-center">
-                          <span className="text-gray-400">กรุณาเลือก</span>
+                          <span className="text-gray-400">⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀</span>
                           <DownOutlined className="text-gray-400" />
                         </Button>
                       </Dropdown>
@@ -342,7 +344,7 @@ const DashboardLayout = () => {
                     <Form.Item label={<>ผู้รับผิดชอบระดับเจ้าหน้าที่<span className="text-red-500">*</span></>}>
                       <Dropdown menu={menuProps}>
                         <Button className="w-full text-left flex justify-between items-center">
-                          <span className="text-gray-400">กรุณาเลือก</span>
+                          <span className="text-gray-400">⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀</span>
                           <DownOutlined className="text-gray-400" />
                         </Button>
                       </Dropdown>
@@ -353,11 +355,11 @@ const DashboardLayout = () => {
                 {/* Second Row - 2 columns */}
                 <Row gutter={16}>
                   {/* Risk Category */}
-                  <Col span={12}>
+                  <Col span={6}>
                     <Form.Item label={<>ด้านความเสี่ยง<span className="text-red-500">*</span></>}>
                       <Dropdown menu={menuProps}>
                         <Button className="w-full text-left flex justify-between items-center">
-                          <span className="text-gray-400">กรุณาเลือก</span>
+                          <span className="text-gray-400">⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀</span>
                           <DownOutlined className="text-gray-400" />
                         </Button>
                       </Dropdown>
@@ -367,11 +369,33 @@ const DashboardLayout = () => {
                   {/* Risk Topic */}
                   <Col span={12}>
                     <Form.Item label={<>ประเด็นความเสี่ยง<span className="text-red-500">*</span></>}>
-                      <Input placeholder="กรุณาเลือก" className="text-gray-400" />
+                      <Input placeholder="⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀" className="text-gray-400" />
                     </Form.Item>
                   </Col>
                 </Row>
               </Form>
+              <Divider />
+              <p>เชื่อมโยงแผนกลยุทธ์ของมหาวิทยาลัย</p>
+              <br />
+              <Col span={20}>
+                <Form.Item label={<>ยุทธศาสตร์ / กลยุทธ <span className="text-red-500">*</span></>}>
+                  <Dropdown menu={menuProps}>
+                    <Button
+                      style={{
+                        height: '250px', // ปรับความสูงที่ต้องการ
+                        fontSize: '18px', // ปรับขนาดฟอนต์ตามต้องการ
+                        padding: '0 16px' // เพิ่ม Padding เพื่อให้ปุ่มดูใหญ่ขึ้น
+                      }}
+                      className="custom-button-class flex justify-between items-center"
+                    >
+                      <span className="placeholder-text">⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀</span>
+                      <DownOutlined className="icon-class" />
+                    </Button>
+                  </Dropdown>
+                </Form.Item>
+              </Col>
+              <Divider />
+
             </div>
           </Content>
         </Layout>
