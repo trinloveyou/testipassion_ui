@@ -38,3 +38,25 @@ body {
     padding-top: 20px;
     /* เพิ่ม padding ด้านบนของเนื้อหา */
 }
+
+.ant-breadcrumb {
+    background-color: #f0f0f0;
+    /* สีพื้นหลังเทาอ่อน */
+    padding: 8px;
+    /* กำหนดระยะห่างภายใน */
+}
+
+.ant-breadcrumb-link span,
+.ant-breadcrumb-separator {
+    color: gray;
+    /* สีเทาสำหรับข้อความและตัวคั่น */
+}
+
+.container {
+    background-color: gray;
+    /* พื้นหลังสีเทา */
+    padding: 20px;
+    /* ระยะห่างภายใน */
+    min-height: 100vh;
+    /* ความสูงขั้นต่ำ 100% ของ viewport */
+}

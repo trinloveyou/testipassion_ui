@@ -388,15 +388,100 @@ const DashboardLayout = () => {
                       }}
                       className="custom-button-class flex justify-between items-center"
                     >
-                      <span className="placeholder-text">⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀</span>
+                      <span className="placeholder-text">⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀</span>
                       <DownOutlined className="icon-class" />
                     </Button>
                   </Dropdown>
                 </Form.Item>
               </Col>
               <Divider />
+              <p>เชื่อมโยงแผนกลยุทธ์ของคณะ / หน่วยงาน</p>
+              <br />
+              <div className="bg-gray-50 p-6 rounded-lg shadow-sm">
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between">
+                    <h3 className="text-lg">1. เป้าหมาย</h3>
+                    <div className="flex space-x-2">
+                      <Button
+                        type="text"
+                        className="text-red-500 hover:text-red-700"
+                        icon={<span className="text-xl">🗑</span>}
+                      />
+                      <Button
+                        type="text"
+                        className="text-gray-500 hover:text-gray-700"
+                        icon={<span className="text-xl">⌃</span>}
+                      />
+                    </div>
+                  </div>
 
+                  <Form.Item>
+                    <Input
+                      placeholder="เป้าหมาย"
+                      className="w-full border rounded-md"
+                    />
+                  </Form.Item>
+
+                  <div className="pl-8 space-y-4">
+                    <div className="flex items-center justify-between">
+                      <h4 className="text-md">1.1 ยุทธศาสตร์</h4>
+                      <Button
+                        type="text"
+                        className="text-red-500 hover:text-red-700"
+                        icon={<span className="text-xl">🗑</span>}
+                      />
+                    </div>
+
+                    <Form.Item>
+                      <Input
+                        placeholder="ยุทธศาสตร์"
+                        className="w-full border rounded-md"
+                      />
+                    </Form.Item>
+
+                    <div className="pl-8 space-y-4">
+                      <div className="flex items-center justify-between">
+                        <h5 className="text-md">1.1.1 กลยุทธ์</h5>
+                        <Button
+                          type="text"
+                          className="text-red-500 hover:text-red-700"
+                          icon={<span className="text-xl">🗑</span>}
+                        />
+                      </div>
+
+                      <Form.Item>
+                        <Input
+                          placeholder="กลยุทธ์"
+                          className="w-full border rounded-md"
+                        />
+                      </Form.Item>
+
+                      <Button
+                        type="link"
+                        className="text-blue-500 hover:text-blue-700"
+                      >
+                        + เพิ่มกลยุทธ์
+                      </Button>
+                    </div>
+
+                    <Button
+                      type="link"
+                      className="text-blue-500 hover:text-blue-700"
+                    >
+                      + เพิ่มยุทธศาสตร์
+                    </Button>
+                  </div>
+
+                  <Button
+                    type="link"
+                    className="text-blue-500 hover:text-blue-700"
+                  >
+                    + เพิ่มเป้าหมาย
+                  </Button>
+                </div>
+              </div>
             </div>
+
           </Content>
         </Layout>
       </Layout>
