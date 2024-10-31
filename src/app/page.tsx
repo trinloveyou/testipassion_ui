@@ -23,6 +23,8 @@ import {
 import { Breadcrumb, Layout, Menu, theme, Steps, DatePicker, Button, Dropdown, Form, message, } from 'antd';
 import type { DatePickerProps, MenuProps } from 'antd';
 import type { Dayjs } from 'dayjs';
+import { Row, Col, Input } from 'antd';
+
 
 const { Content, Sider } = Layout;
 
@@ -299,87 +301,76 @@ const DashboardLayout = () => {
             <div className="max-w-6xl mx-auto p-8">
               <Form layout="vertical" className="space-y-6">
                 {/* First Row - 4 columns */}
-                <div className="grid grid-cols-4 gap-4">
+                <Row gutter={16}>
                   {/* Fiscal Year */}
-                  <div>
-                    <div className="mb-2">
-                      <span className="text-sm">ปีงบประมาณ<span className="text-red-500">*</span></span>
-                    </div>
-                    <DatePicker
-                      className="w-full"
-                      needConfirm
-                      suffixIcon={<CalendarOutlined className="text-gray-400" />}
-                    />
-                  </div>
+                  <Col span={6}>
+                    <Form.Item label={<>ปีงบประมาณ<span className="text-red-500">*</span></>}>
+                      <DatePicker
+                        className="w-full"
+                        needConfirm
+                        suffixIcon={<CalendarOutlined className="text-gray-400" />}
+                      />
+                    </Form.Item>
+                  </Col>
 
                   {/* Department */}
-                  <div>
-                    <div className="mb-2">
-                      <span className="text-sm">หน่วยงาน/ส่วนงาน ที่รับผิดชอบ<span className="text-red-500">*</span></span>
-                    </div>
-                    <Dropdown menu={menuProps}>
-                      <Button className="w-full text-left flex justify-between items-center">
-                        <span className="text-gray-400">กรุณาเลือก</span>
-                        <DownOutlined className="text-gray-400" />
-                      </Button>
-                    </Dropdown>
-                  </div>
+                  <Col span={6}>
+                    <Form.Item label={<>หน่วยงาน/ส่วนงาน ที่รับผิดชอบ<span className="text-red-500">*</span></>}>
+                      <Dropdown menu={menuProps}>
+                        <Button className="w-full text-left flex justify-between items-center">
+                          <span className="text-gray-400">กรุณาเลือก</span>
+                          <DownOutlined className="text-gray-400" />
+                        </Button>
+                      </Dropdown>
+                    </Form.Item>
+                  </Col>
 
                   {/* Executive */}
-                  <div>
-                    <div className="mb-2">
-                      <span className="text-sm">ผู้รับผิดชอบระดับผู้บริหาร<span className="text-red-500">*</span></span>
-                    </div>
-                    <Dropdown menu={menuProps}>
-                      <Button className="w-full text-left flex justify-between items-center">
-                        <span className="text-gray-400">กรุณาเลือก</span>
-                        <DownOutlined className="text-gray-400" />
-                      </Button>
-                    </Dropdown>
-                  </div>
+                  <Col span={6}>
+                    <Form.Item label={<>ผู้รับผิดชอบระดับผู้บริหาร<span className="text-red-500">*</span></>}>
+                      <Dropdown menu={menuProps}>
+                        <Button className="w-full text-left flex justify-between items-center">
+                          <span className="text-gray-400">กรุณาเลือก</span>
+                          <DownOutlined className="text-gray-400" />
+                        </Button>
+                      </Dropdown>
+                    </Form.Item>
+                  </Col>
 
                   {/* Staff */}
-                  <div>
-                    <div className="mb-2">
-                      <span className="text-sm">ผู้รับผิดชอบระดับเจ้าหน้าที่<span className="text-red-500">*</span></span>
-                    </div>
-                    <Dropdown menu={menuProps}>
-                      <Button className="w-full text-left flex justify-between items-center">
-                        <span className="text-gray-400">กรุณาเลือก</span>
-                        <DownOutlined className="text-gray-400" />
-                      </Button>
-                    </Dropdown>
-                  </div>
-                </div>
+                  <Col span={6}>
+                    <Form.Item label={<>ผู้รับผิดชอบระดับเจ้าหน้าที่<span className="text-red-500">*</span></>}>
+                      <Dropdown menu={menuProps}>
+                        <Button className="w-full text-left flex justify-between items-center">
+                          <span className="text-gray-400">กรุณาเลือก</span>
+                          <DownOutlined className="text-gray-400" />
+                        </Button>
+                      </Dropdown>
+                    </Form.Item>
+                  </Col>
+                </Row>
 
                 {/* Second Row - 2 columns */}
-                <div className="grid grid-cols-2 gap-4">
+                <Row gutter={16}>
                   {/* Risk Category */}
-                  <div>
-                    <div className="mb-2">
-                      <span className="text-sm">ด้านความเสี่ยง<span className="text-red-500">*</span></span>
-                    </div>
-                    <Dropdown menu={menuProps}>
-                      <Button className="w-full text-left flex justify-between items-center">
-                        <span className="text-gray-400">กรุณาเลือก</span>
-                        <DownOutlined className="text-gray-400" />
-                      </Button>
-                    </Dropdown>
-                  </div>
+                  <Col span={12}>
+                    <Form.Item label={<>ด้านความเสี่ยง<span className="text-red-500">*</span></>}>
+                      <Dropdown menu={menuProps}>
+                        <Button className="w-full text-left flex justify-between items-center">
+                          <span className="text-gray-400">กรุณาเลือก</span>
+                          <DownOutlined className="text-gray-400" />
+                        </Button>
+                      </Dropdown>
+                    </Form.Item>
+                  </Col>
 
                   {/* Risk Topic */}
-                  <div>
-                    <div className="mb-2">
-                      <span className="text-sm">ประเด็นความเสี่ยง<span className="text-red-500">*</span></span>
-                    </div>
-                    <Dropdown menu={menuProps}>
-                      <Button className="w-full text-left flex justify-between items-center">
-                        <span className="text-gray-400">กรุณาเลือก</span>
-                        <DownOutlined className="text-gray-400" />
-                      </Button>
-                    </Dropdown>
-                  </div>
-                </div>
+                  <Col span={12}>
+                    <Form.Item label={<>ประเด็นความเสี่ยง<span className="text-red-500">*</span></>}>
+                      <Input placeholder="กรุณาเลือก" className="text-gray-400" />
+                    </Form.Item>
+                  </Col>
+                </Row>
               </Form>
             </div>
           </Content>
