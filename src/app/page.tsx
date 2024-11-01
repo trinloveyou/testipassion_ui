@@ -25,9 +25,106 @@ import {
 import { Breadcrumb, Layout, Menu, theme, Steps, DatePicker, Button, Dropdown, Form, message, Divider, Upload } from 'antd';
 import type { DatePickerProps, MenuProps, UploadProps } from 'antd';
 import { Row, Col, Input } from 'antd';
-
-
 const { Content, Sider } = Layout;
+import { ItemType, MenuItemType } from 'antd';
+const [goals, setGoals] = useState([
+  {
+    id: 1,
+    title: '',
+    strategies: [
+      {
+        id: 1,
+        title: '',
+        tactics: [
+          {
+            id: 1,
+            title: ''
+          }
+        ]
+      }
+    ]
+  }
+]);
+
+// Add a new goal
+const addGoal = (): void => {
+  setGoals([
+    ...goals,
+    {
+      id: goals.length + 1,
+      title: '',
+      strategies: [
+        {
+          id: 1,
+          title: '',
+          tactics: [
+            {
+              id: 1,
+              title: ''
+            }
+          ]
+        }
+      ]
+    }
+  ]);
+};
+
+// Add a new strategy
+const addStrategy = (goalIndex: number) => {
+  const newGoals = [...goals];
+  const newStrategy = {
+    id: newGoals[goalIndex].strategies.length + 1,
+    title: '',
+    tactics: [
+      {
+        id: 1,
+        title: ''
+      }
+    ]
+  };
+  newGoals[goalIndex].strategies.push(newStrategy);
+  setGoals(newGoals);
+};
+
+// Add a new tactic
+const addTactic = (goalIndex: number, strategyIndex: number) => {
+  const newGoals = [...goals];
+  const newTactic = {
+    id: newGoals[goalIndex].strategies[strategyIndex].tactics.length + 1,
+    title: ''
+  };
+  newGoals[goalIndex].strategies[strategyIndex].tactics.push(newTactic);
+  setGoals(newGoals);
+};
+
+// Delete a goal
+const deleteGoal = (goalIndex: number) => {
+  const newGoals = goals.filter((_, index) => index !== goalIndex);
+  setGoals(newGoals);
+};
+
+// Delete a strategy
+const deleteStrategy = (goalIndex: number, strategyIndex: number) => {
+  const newGoals = [...goals];
+  newGoals[goalIndex].strategies = newGoals[goalIndex].strategies.filter(
+    (_, index) => index !== strategyIndex
+  );
+  setGoals(newGoals);
+};
+
+// Delete a tactic
+const deleteTactic = (goalIndex: number, strategyIndex: number, tacticIndex: number) => {
+  const newGoals = [...goals];
+  newGoals[goalIndex].strategies[strategyIndex].tactics =
+    newGoals[goalIndex].strategies[strategyIndex].tactics.filter(
+      (_, index) => index !== tacticIndex
+    );
+  setGoals(newGoals);
+};
+
+
+
+
 
 const props: UploadProps = {
   name: 'file',
@@ -400,9 +497,10 @@ const DashboardLayout = () => {
                 <Dropdown menu={menuProps}>
                   <Button
                     style={{
-                      height: '250px', // ปรับความสูงที่ต้องการ
-                      fontSize: '18px', // ปรับขนาดฟอนต์ตามต้องการ
-                      padding: '0 16px' // เพิ่ม Padding เพื่อให้ปุ่มดูใหญ่ขึ้น
+                      height: '250px',
+                      fontSize: '18px',
+                      paddingLeft: '5px',
+                      paddingRight: '5px'
                     }}
                     className="custom-button-class flex justify-between items-center"
                   >
@@ -419,23 +517,25 @@ const DashboardLayout = () => {
               <p>เชื่อมโยงแผนกลยุทธ์ของคณะ / หน่วยงาน</p>
               <br />
 
-              <div className="bg-gray-200 min-h-screen flex items-center justify-center p-4">
+              <div className="bg-gray-200">
                 <div className="bg-[#F7F7F9] rounded-lg p-6 max-w-xl w-full">
 
-                  <div style={{ background: "#bbb6b6", padding: "12px", }} className="mb-6">
+                  <div style={{ background: "#bbb6b6", padding: "20px", }} className="mb-6">
                     <div className="flex justify-between items-center mb-2">
                       <h3 className="text-base font-normal">1. เป้าหมาย</h3>
                       <div className="flex gap-1">
-                        <button className="text-red-500">
+                        <button className="text-red-500 flex-shrink-0 ml-auto">
                           <DeleteOutlined />
                         </button>
                       </div>
-                      <Form.Item className="mb-6">
-                        <Input placeholder="" className="w-full bg-white" />
-                      </Form.Item>
+                      <Form>
+                        <Form.Item className="mb-6">
+                          <Input placeholder="" className="w-full bg-white" />
+                        </Form.Item>
+                      </Form>
                       <div>
-                        <div style={{ background: "#e3e0e0" }} className="ml-2 mb-1 p-2">
-                          <div className="flex justify-between items-center px-1 py-0.5">
+                        <div style={{ background: "#e3e0e0", margin: "24px" }} className="ml-2 mb-1 p-2">
+                          <div className="h-64 text-lg px-3">
                             <h4 className="text-xs font-normal">1.1 ยุทธศาสตร์</h4>
                             <button className="text-red-500 hover:text-red-700">
                               <DeleteOutlined className="text-xs" />
@@ -492,16 +592,20 @@ const DashboardLayout = () => {
               </Upload>
               <Divider />
             </div>
-            <p>1.สาเหตุความเสี่ยง</p>
-            <br />
+            <p>
+              1.สาเหตุความเสี่ยง<span style={{ color: 'red' }}>*</span>
+            </p>            <br />
             <div>
               <div className="ml-22">
-                <div className="flex justify-between items-center px-1 py-0.5">
+                <div className="flex items-center justify-between px-1 py-0.5">
                   <h5 className="text-xs font-normal font-size=15px">สาเหตุความเสี่ยง</h5>
                   <button className="text-red-500 hover:text-red-700">
                     <DeleteOutlined className="text-xs" />
                   </button>
                 </div>
+
+
+
 
                 <Form.Item className="mb-2">
                   <Input placeholder="" className="w-full bg-white" />
@@ -511,7 +615,10 @@ const DashboardLayout = () => {
                 </Button>
                 <br />
                 <br />
-                <p>Key word ความเสี่ยง</p>
+                <p>
+                  Key word ความเสี่ยง<span className="text-red-500">*</span>
+                </p>
+
                 <br />
 
                 <Form.Item>
@@ -529,9 +636,7 @@ const DashboardLayout = () => {
           </Content>
         </Layout>
       </Layout>
-    </Layout>
+    </Layout >
   );
 };
-
-
 export default DashboardLayout;
